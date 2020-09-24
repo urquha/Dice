@@ -4,14 +4,15 @@ import './MyButton.css'
 
 function MyButton(props) {
     const label = props.label
-    if(props.Link){
+    console.log(props.link)
+    if(props.link){
         return (
             <Link to={props.link}>
-                <button className="btn" onClick={props.onClick} style={props.style}>{label}</button>
+                <button className={"btn " + props.className} onClick={props.onClick} style={props.style}>{label}</button>
             </Link>
         );
     }else return (
-        <button className="btn" onClick={props.onClick} style={props.style}>{label}</button>
+        <button className={"btn " + props.className} onClick={props.onClick} style={props.style} align="center">{label}</button>
     )
 
 }
