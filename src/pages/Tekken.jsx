@@ -9,6 +9,7 @@ const Tekken = () => {
     const [redDice, setRedDice] = useState("");
     const [blueHP, setBlueHP] = useState(100);
     const [redHP, setRedHP] = useState(100);
+    const [turn, setTurn] = useState(true)
 
     const diceRoll = (colour) => {
         const current_date = new Date();
@@ -17,9 +18,11 @@ const Tekken = () => {
         if(colour === "blue"){
             setBlueDice(roll);
             setRedHP(redHP - roll)
+            setTurn(false)
         }else if(colour === "red"){
             setRedDice(roll)
             setBlueHP(blueHP - roll)
+            setTurn(true)
         }
         return;
     };
@@ -49,12 +52,16 @@ const Tekken = () => {
             <SplitPane split='vertical' minSize={50} defaultSize="50%" >
                     <Pane className="">
                         <p>HP: {blueHP}</p>
-                        <MyButton className="rollButton" label="Hit Me" style={{backgroundColor:"Blue"}} onClick={() => diceRoll("blue")}/>
+                        <MyButton disabled={!turn} className="rollButton" label="Hit Me" style={{backgroundColor:"Blue"}} onClick={() => diceRoll("blue")}/>
+                        <br/>
+                        <br/>
                         <p>{blueDice}</p>
                     </Pane>
                     <Pane className="">
                         <p>HP: {redHP}</p>
-                        <MyButton className="rollButton" label="Hit Me" style={{backgroundColor:"Red"}} onClick={() => diceRoll("red")}/>
+                        <MyButton disabled={turn} className="rollButton" label="Hit Me" style={{backgroundColor:"Red"}} onClick={() => diceRoll("red")}/>
+                        <br/>
+                        <br/>
                         <p>{redDice}</p>
                     </Pane>
             </SplitPane>
