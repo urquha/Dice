@@ -14,7 +14,7 @@ function MyButton(props) {
             </Link>
         );
     }else return (
-        <button disabled={props.disabled} className={"btn " + props.className} onClick={props.onClick} style={props.style} align="center">{label}</button>
+        <button disabled={props.disabled} className={"btn " + props.className} onClick={props.onClick} align="center">{label}</button>
     )
 
 }
