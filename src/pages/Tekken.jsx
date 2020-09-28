@@ -12,6 +12,8 @@ const Tekken = () => {
     const [roll1, setRoll1] = useState(false)
     const [roll2, setRoll2] = useState(false)
     const [roll3, setRoll3] = useState(false)
+    const [multiplier, setMultiplier] = useState(["blue", 1])
+
     // True is blue, false is red
     const [turn, setTurn] = useState(true)
 
@@ -32,32 +34,35 @@ const Tekken = () => {
             console.log(roll1, roll2, roll3)
             if((roll1 &&  roll2 === true) || (roll1 && roll3 === true) || (roll2 && roll3 === true)){
                 console.log("hello")
+                const currentMultiplyer = multiplier[1]
                 if((currentRoll[0] === currentRoll[1]) && (currentRoll[1] === currentRoll[2])){
                     setRollsFalse()
                     setTurn(true)
-                    setRedHP(redHP - currentRoll[0] - currentRoll[1] - currentRoll[2])
-                    return  
-                } 
-                if(currentRoll[0] === currentRoll[1]){
+                    const score = currentMultiplyer * (currentRoll[0] + currentRoll[1] + currentRoll[2])
+                    setRedHP(redHP - score)
+                }else if(currentRoll[0] === currentRoll[1]){
                     setRollsFalse()
                     setTurn(true)
-                    setRedHP(redHP - currentRoll[0] - currentRoll[1])
-                    return  
-                } 
-                if(currentRoll[1] === currentRoll[2]){
+                    const score = currentMultiplyer * (currentRoll[0] + currentRoll[1])
+                    setRedHP(redHP - score)
+                }else if(currentRoll[1] === currentRoll[2]){
                     setRollsFalse()
                     setTurn(true)
-                    setRedHP(redHP - currentRoll[1] - currentRoll[2])
-                    return  
+                    const score = currentMultiplyer * (currentRoll[1] + currentRoll[2])
+                    setRedHP(redHP - score)
+                }else if(currentRoll[0] === currentRoll[2]){
+                    setRollsFalse()
+                    setTurn(true)
+                    const score = currentMultiplyer * (currentRoll[0] + currentRoll[2])
+                    setRedHP(redHP - score)     
+                }else {
+                    setRollsFalse()
+                    setTurn(false)
+                    setMultiplier(["red", 1])
+                    return
                 }
-                if(currentRoll[0] === currentRoll[2]){
-                    setRollsFalse()
-                    setTurn(true)
-                    setRedHP(redHP - currentRoll[0] - currentRoll[2])
-                    return  
-                }
-                setRollsFalse()
-                setTurn(false)
+                setMultiplier(["blue", multiplier[1] + 1])
+                return
             }
         }else if(colour === "r"){
             setBlueDice([0,0,0])
@@ -71,32 +76,35 @@ const Tekken = () => {
             console.log(roll1, roll2, roll3)
             if((roll1 &&  roll2 === true) || (roll1 && roll3 === true) || (roll2 && roll3 === true)){
                 console.log("hello")
+                const currentMultiplyer = multiplier[1]
                 if((currentRoll[0] === currentRoll[1]) && (currentRoll[1] === currentRoll[2])){
                     setRollsFalse()
                     setTurn(false)
-                    setBlueHP(blueHP - currentRoll[0] - currentRoll[1] - currentRoll[2])
-                    return  
-                } 
-                if(currentRoll[0] === currentRoll[1]){
+                    const score = currentMultiplyer * (currentRoll[0] + currentRoll[1] + currentRoll[2])
+                    setBlueHP(blueHP - score)
+                }else if(currentRoll[0] === currentRoll[1]){
                     setRollsFalse()
                     setTurn(false)
-                    setBlueHP(blueHP - currentRoll[0] - currentRoll[1])
-                    return  
-                } 
-                if(currentRoll[1] === currentRoll[2]){
+                    const score = currentMultiplyer * (currentRoll[0] + currentRoll[1])
+                    setBlueHP(blueHP - score)  
+                }else if(currentRoll[1] === currentRoll[2]){
                     setRollsFalse()
                     setTurn(false)
-                    setBlueHP(blueHP - currentRoll[1] - currentRoll[2])
-                    return  
+                    const score = currentMultiplyer * (currentRoll[1] + currentRoll[2])
+                    setBlueHP(blueHP - score)
+                }else if(currentRoll[0] === currentRoll[2]){
+                    setRollsFalse()
+                    setTurn(false)
+                    const score = currentMultiplyer * (currentRoll[0] + currentRoll[2])
+                    setBlueHP(blueHP - score)
+                }else {
+                    setRollsFalse()
+                    setTurn(true)
+                    setMultiplier(["blue", 1])
+                    return
                 }
-                if(currentRoll[0] === currentRoll[2]){
-                    setRollsFalse()
-                    setTurn(false)
-                    setBlueHP(blueHP - currentRoll[0] - currentRoll[2])
-                    return  
-                }
-                setRollsFalse()
-                setTurn(true)
+                setMultiplier(["red", multiplier[1] + 1])
+                return
             }
         }
         return;
@@ -160,6 +168,11 @@ const Tekken = () => {
         return
     }
 
+    function getMultiplier(colour) {
+        if((multiplier[0] === colour) && (multiplier[1] > 1)) return multiplier[[1]] + "X"
+        return
+    }
+
     const mainBit = 
         <div>
             <SplitPane split='vertical' minSize={50} defaultSize="50%" >
@@ -170,6 +183,9 @@ const Tekken = () => {
                         <MyButton disabled={disabled("blue", 3)} className={getClassName("blue", 3)} label="Hit Me" style={{backgroundColor:"Blue"}} onClick={() => diceRoll("b3")}/>
                         <br/>
                         <br/>
+                        <p>{getMultiplier("blue")}</p>
+                        <br/>
+                        <br/>
                         <p>{blueDice[0]} {blueDice[1]} {blueDice[2]}</p>
                     </Pane>
                     <Pane className="">
@@ -177,6 +193,9 @@ const Tekken = () => {
                         <MyButton disabled={disabled("red", 1)} className={getClassName("red", 1)} label="Hit Me" style={{backgroundColor:"Red"}} onClick={() => diceRoll("r1")}/>
                         <MyButton disabled={disabled("red", 2)} className={getClassName("red", 2)} label="Hit Me" style={{backgroundColor:"Red"}} onClick={() => diceRoll("r2")}/>
                         <MyButton disabled={disabled("red", 3)} className={getClassName("red", 3)} label="Hit Me" style={{backgroundColor:"Red"}} onClick={() => diceRoll("r3")}/>
+                        <br/>
+                        <br/>
+                        <p>{getMultiplier("red")}</p>
                         <br/>
                         <br/>
                         <p>{redDice[0]}     {redDice[1]}       {redDice[2]}</p>
