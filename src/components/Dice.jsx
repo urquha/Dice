@@ -2,22 +2,22 @@ import React from 'react'
 import './Dice.css'
 
 export default function Dice(props) {
-    const rollOne = <div class="dice first-face">
+    const rollOne = <div class={"dice first-face " + props.colour}>
                         <span class="dot"> </span>
                     </div>
 
-    const rollTwo = <div class="dice second-face">
+    const rollTwo = <div class={"dice second-face " + props.colour}>
                         <span class="dot"> </span>
                         <span class="dot"> </span>
                     </div>
 
-    const rollThree = <div class="dice third-face">
+    const rollThree = <div class={"dice third-face " + props.colour}>
                         <span class="dot"></span>
                         <span class="dot"></span>
                         <span class="dot"></span>
                     </div>
 
-    const rollFour = <div class="fourth-face dice">
+    const rollFour = <div class={"fourth-face dice " + props.colour}>
                         <div class="column">
                             <span class="dot"></span>
                             <span class="dot"></span>
@@ -28,7 +28,7 @@ export default function Dice(props) {
                         </div>
                     </div>
 
-    const rollFive = <div class="fifth-face dice">
+    const rollFive = <div class={"fifth-face dice " + props.colour}>
                         <div class="column">
                             <span class="dot"></span>
                             <span class="dot"></span>
@@ -45,7 +45,7 @@ export default function Dice(props) {
                     </div>
 
 
-    const rollSix = <div class="fourth-face dice">
+    const rollSix = <div class={"fourth-face dice " + props.colour}>
                         <div class="column">
                             <span class="dot"></span>
                             <span class="dot"></span>

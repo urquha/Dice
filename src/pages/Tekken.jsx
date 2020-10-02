@@ -187,9 +187,11 @@ const Tekken = () => {
                         <p>{getMultiplier("blue")}</p>
                         <br/>
                         <br/>
-                        <Dice roll={blueDice[0]}></Dice>
-                        <Dice roll={blueDice[1]}></Dice>
-                        <Dice roll={blueDice[2]}></Dice>
+                        <Dice roll={blueDice[0]} colour="blue"></Dice>
+                        <br/>
+                        <Dice roll={blueDice[1]} colour="blue"></Dice>
+                        <br/>
+                        <Dice roll={blueDice[2]} colour="blue"></Dice>
                     </Pane>
                     <Pane className="">
                         <p>HP: {redHP}</p>
@@ -201,9 +203,11 @@ const Tekken = () => {
                         <p>{getMultiplier("red")}</p>
                         <br/>
                         <br/>
-                        <Dice roll={redDice[0]}></Dice>
-                        <Dice roll={redDice[1]}></Dice>
-                        <Dice roll={redDice[2]}></Dice>
+                        <Dice roll={redDice[0]} colour="red"></Dice>
+                        <br/>
+                        <Dice roll={redDice[1]} colour="red"></Dice>
+                        <br/>
+                        <Dice roll={redDice[2]} colour="red"></Dice>
                     </Pane>
             </SplitPane>
         </div>
