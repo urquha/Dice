@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import MyButton from '../components/MyButton';
+import Dice from '../components/Dice'
 import SplitPane, { Pane } from 'react-split-pane';
 import './Tekken.css';
 
@@ -186,7 +187,9 @@ const Tekken = () => {
                         <p>{getMultiplier("blue")}</p>
                         <br/>
                         <br/>
-                        <p>{blueDice[0]} {blueDice[1]} {blueDice[2]}</p>
+                        <Dice roll={blueDice[0]}></Dice>
+                        <Dice roll={blueDice[1]}></Dice>
+                        <Dice roll={blueDice[2]}></Dice>
                     </Pane>
                     <Pane className="">
                         <p>HP: {redHP}</p>
@@ -198,7 +201,9 @@ const Tekken = () => {
                         <p>{getMultiplier("red")}</p>
                         <br/>
                         <br/>
-                        <p>{redDice[0]}     {redDice[1]}       {redDice[2]}</p>
+                        <Dice roll={redDice[0]}></Dice>
+                        <Dice roll={redDice[1]}></Dice>
+                        <Dice roll={redDice[2]}></Dice>
                     </Pane>
             </SplitPane>
         </div>
